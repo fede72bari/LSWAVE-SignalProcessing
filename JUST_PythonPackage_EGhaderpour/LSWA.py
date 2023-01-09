@@ -234,11 +234,11 @@ if __name__ == '__main__':
                         "or the inverse of the covariance matrix associated with "
                         "the time series", type = str, default = 0)
     parser.add_argument('--Ltime', help = "Numeric. The start time for regularization", 
-                        type = float, default = 0) 
+                        type = int, default = 0) 
     parser.add_argument('--Utime', help = "Numeric. The end time for regularization",
-                        type = float, default = 0) 
+                        type = int, default = 0) 
     parser.add_argument('--Numtime', help = "Numeric. The number of equally spaced times "
-                        "between Ltime and Utime", type = float, default = 0)     
+                        "between Ltime and Utime", type = int, default = 0)     
     parser.add_argument('--rate', help = "Numeric. M: An estimate for the sampling rate", 
                         type = int, default = None)
     parser.add_argument('--Lfreq', help = "Numeric. Lower cyclic frequency", 
@@ -246,7 +246,7 @@ if __name__ == '__main__':
     parser.add_argument('--Ufreq', help = "Numeric. Upper cyclic frequency", 
                         type = float, default = 0)
     parser.add_argument('--Numfreq', help = "Numeric. The number of cyclic frequencies between "
-                        "Lfreq and Ufreq", type = float, default = 0) 
+                        "Lfreq and Ufreq", type = int, default = 0) 
     parser.add_argument('--ind', help = "Jump indices", nargs ='+', type = int, default = []) 
     parser.add_argument('--level', help = "Numeric. Significance level", 
                         type = float, default = 0.01) 
@@ -317,11 +317,11 @@ if __name__ == '__main__':
     if len(tt) > 0: tt0 = tt - t[0]   # For the sake of computational efficiency 
     else: tt0 = []
     
-    tic = time.clock()     
+    tic = time.process_time()     
     Results = LSWA(t0, f, P = P, tt = tt0, rate = args.rate, Omega = Omega, ind = args.ind, 
                    level = args.level, trend = args.trend, slope = args.slope, freq = args.freq, 
                    L1 = args.L1, L0 = args.L0, morlet = args.morlet)
-    toc = time.clock()
+    toc = time.process_time()
     print("Computational Time: ", round(toc-tic,2), "s") 
     # Select larger window size parameters (e.g., L0 = 5) if you got the following error: 
     # 'The size of the time series (segment) is too small!'
@@ -344,5 +344,3 @@ if __name__ == '__main__':
         PlotSpectrogram (t, f, tt, Omega, spectrogram, stoch_surf, 
                          amp_spectrogram, args.display) 
    
-
-    
